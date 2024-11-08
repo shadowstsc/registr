@@ -26,6 +26,27 @@ URL="https://api.telegram.org/bot$KEY/sendMessage"
 WHATSAPP="6283138940887"
 USERNAME_TELE="@ShadowTunnelST"
 
+ #                                   | |                                     #
+ # NICK => SHADOW TUNNEL
+ #                                   | |                                     #
+ # CITY => BANDUNG BARAT
+ #                                   | |                                     #
+ # ADSS => BOJONG JAMBU
+ #                                   | |                                     #
+ # REGN => INDONESIA
+ #                                   | |                                     #
+ #                                   | |                                     #
+ #                                   | |                                     #
+ #                                   | |                                     #
+ #                                   | |                                     #
+ #                                   | |                                     #
+ #                                   | |                                     #
+ #                                   | |                                     #
+ #                                   | |                                     #
+ #                                   | |                                     #
+ #                                   VVVV                                   #
+ 
+ 
 HORIZONTAL_LINE() {
     local elegant_line=(
         "\033[38;5;234m"   # Dark Gray
@@ -145,6 +166,29 @@ domain_shadow() {
 
     printf "\033[0m\n"
 }
+
+
+SEND_NOTIF_INSTALLATION() {
+USRSC=$(wget -qO- ${LINK_REGS} | grep $ipsaya | awk '{print $2}')
+EXPSC=$(wget -qO- ${LINK_REGS} | grep $ipsaya | awk '{print $3}')
+TIMEZONE=$(printf '%(%H:%M:%S)T')
+TEXT="
+<code>────────────────────</code>
+ <b> 🟢 NOTIFICATIONS INSTALL 🟢</b>
+<code>────────────────────</code>
+<code>ID      : </code><code>$USRSC</code>
+<code>Host    : </code><code>$domain</code>
+<code>Date    : </code><code>$TIME</code>
+<code>Times   : </code><code>$TIMEZONE</code>
+<code>Exp Sc  : </code><code>$EXPSC</code>
+<code>────────────────────</code>
+<i>Automatic Notification from Github</i>
+"'&reply_markup={"inline_keyboard":[[{"text":"ᴏʀᴅᴇʀ","url":"https://t.me/${USERNAME_TELE}"},{"text":"Contack","url":"https://wa.me/${WHATSAPP}"}]]}'
+curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+}
+
+
+
 
 #// GET IPVPS
 ipsaya=$(wget -qO- ipinfo.io/ip)
@@ -480,10 +524,10 @@ fun_bar() {
         touch $HOME/fim
     ) >/dev/null 2>&1 &
     tput civis
-    echo -ne "  \033[0;33mPlease Wait Loading \033[1;37m- \033[0;33m["
+    echo -ne " \033[92;1mInstall Packet \033[1;37m- \033[0;33m["
     while true; do
         for ((i = 0; i < 18; i++)); do
-            echo -ne "\033[0;32m# "
+            echo -ne "\033[96;1m#"
             sleep 0.1s
         done
         [[ -e $HOME/fim ]] && rm $HOME/fim && break
@@ -491,7 +535,7 @@ fun_bar() {
         sleep 1s
         tput cuu1
         tput dl1
-        echo -ne "  \033[0;33mPlease Wait Loading \033[1;37m- \033[0;33m["
+        echo -ne " \033[92;1mmInstall Paket \033[1;37m- \033[0;33m["
     done
     echo -e "\033[0;33m]\033[1;37m -\033[1;32m OK !\033[1;37m"
     tput cnorm
@@ -603,7 +647,6 @@ mkdir -p /etc/lunatic/limit/trojan/account
 mkdir -p /etc/lunatic/limit/ssh/account
 mkdir -p /etc/lunatic/limit/noobzvpns/account
 mkdir -p /etc/lunatic/limit/shadowsocks/account
-
 # // Repo Kuota Data
 mkdir -p /etc/lunatic/limit/vmess/quota
 mkdir -p /etc/lunatic/limit/vless/quota
@@ -629,9 +672,7 @@ echo "& plughin Account" >>/etc/trojan/.trojan.db
 echo "& plughin Account" >>/etc/shadowsocks/.shadowsocks.db
 echo "& plughin Account" >>/etc/ssh/.ssh.db
 echo "& plughin Account" >>/etc/noobzvpns/.noobzvpns.db
-
 }
-
 INSTALL_XRAY() {
 clear
 domainSock_dir="/run/xray";! [ -d $domainSock_dir ] && mkdir  $domainSock_dir
@@ -1161,24 +1202,7 @@ chmod +x run-cron.sh
 ./run-cron.sh
 }
 
-INSTALL_NOTIF() {
-USRSC=$(wget -qO- ${LINK_REGS} | grep $ipsaya | awk '{print $2}')
-EXPSC=$(wget -qO- ${LINK_REGS} | grep $ipsaya | awk '{print $3}')
-TIMEZONE=$(printf '%(%H:%M:%S)T')
-TEXT="
-<code>────────────────────</code>
- <b> 🟢 NOTIFICATIONS INSTALL 🟢</b>
-<code>────────────────────</code>
-<code>ID      : </code><code>$USRSC</code>
-<code>Host    : </code><code>$domain</code>
-<code>Date    : </code><code>$TIME</code>
-<code>Times   : </code><code>$TIMEZONE</code>
-<code>Exp Sc  : </code><code>$EXPSC</code>
-<code>────────────────────</code>
-<i>Automatic Notification from Github</i>
-"'&reply_markup={"inline_keyboard":[[{"text":"ᴏʀᴅᴇʀ","url":"https://t.me/${USERNAME_TELE}"},{"text":"Contack","url":"https://wa.me/${WHATSAPP}"}]]}'
-curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
-}
+
 
 INSTALL_SSL() {
 rm -rf /etc/xray/xray.key
@@ -1213,12 +1237,12 @@ fi
 netfilter-persistent
 clear
 echo -e "\e[38;5;162m┌───────────────────────────────────────────┐\033[0m "
-echo -e "\033[1;91m                     INSTALL PACKAGE                   \033[1;37m"
+echo -e "\033[1;91m             INSTALL PACKAGE                   \033[1;37m"
 fun_bar 'INSTALL_MODULE'
 clear
 
 echo -e "\e[38;5;162m┌───────────────────────────────────────────┐\033[0m "
-echo -e "\033[1;91m                 PROCESSING INSTALLER                  \033[1;37m"
+echo -e "\033[1;91m          PROCESSING INSTALLER SCRIPT                  \033[1;37m"
 echo ""
 fun_bar 'INSTALL_SSL'
 fun_bar 'INSTALL_NGINX'
@@ -1244,24 +1268,27 @@ fun_bar 'INSTALL_SERV_XRAY'
 fun_bar 'INSTALL_UDP'
 fun_bar 'INSTALL_CRON'
 fun_bar 'INSTALL_MENU'
-fun_bar 'INSTALL_NOTIF'
 echo -e "\e[38;5;162m┌───────────────────────────────────────────┐\033[0m "
-echo -e "\033[1;91m               INSTALLER SUCCESFULLY                   \033[1;37m"
+echo -e "\033[1;91m             INSTALL SUCCESFULLY                   \033[1;37m"
 echo -e "\e[38;5;162m└───────────────────────────────────────────┘\033[0m "
 sleep 3
 clear
 }
-
-
-
-
-# // CALL FUNCTION
-INSTALL_DOMAIN
-INSTALLER_MAIN
-RESTART_ALL_SERVICE
-clear
-
-
+function M_OR_R() {
+cL
+echo -e ""
+echo -e "\e[38;5;162m┌───────────────────────────────────────────┐\033[0m "
+echo -e "\e[92;1m 1.\e[97;1m REBOOT VPS \e[0m"
+echo -e "\e[92;1m 2.\e[97;1m GO TO MENU \e[0m"
+echo -e "\e[38;5;162m└───────────────────────────────────────────┘\033[0m "
+echo ""
+read -p "SELECT:    " zxzx
+case $zxzx in
+1) reboot ;;
+2) clear ; welcome ;;
+esac
+}
+function DELETE_CACHE() {
 echo ""
 history -c
 rm -rf /root/menu
@@ -1279,20 +1306,28 @@ rm noobzvpns.zip
 rm -rf noobzvpns.zip
 secs_to_human "$(($(date +%s) - ${start}))"
 sudo hostnamectl set-hostname $username
-
-function M_OR_R() {
-cL
-echo -e ""
-echo -e "\e[38;5;162m┌───────────────────────────────────────────┐\033[0m "
-echo -e "\e[92;1m 1.\e[97;1m REBOOT VPS \e[0m"
-echo -e "\e[92;1m 2.\e[97;1m GO TO MENU \e[0m"
-echo -e "\e[38;5;162m└───────────────────────────────────────────┘\033[0m "
-echo ""
-read -p "SELECT:    " zxzx
-case $zxzx in
-1) reboot ;;
-2) clear ; welcome ;;
-esac
 }
 
+###############################################################################
+ #                                   | |                                     #
+ #                                   | |                                     #
+ #                                   | |                                     #
+ #                                   | |                                     #
+ #                                   | |                                     #
+ #                                   | |                                     #
+ #                                   | |                                     #
+ #                                  VVVVV                                   #
+ 
+
+
+
+
+
+# // CALL FUNCTION
+INSTALL_DOMAIN
+INSTALLER_MAIN
+RESTART_ALL_SERVICE
+SEND_NOTIF_INSTALLATION
+clear
+DELETE_CACHE
 M_OR_R
